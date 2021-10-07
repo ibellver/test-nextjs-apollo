@@ -1,10 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/home.module.css';
 import { gql } from "@apollo/client";
 import client from "../client/apollo-client";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
+  console.log('query server-side case - called on each request');
   const { data } = await client.query({
     query: gql`
       query Countries {
@@ -20,7 +21,7 @@ export async function getStaticProps() {
   return {
     props: {
       countries: data.countries.slice(0, 4),
-    }
+    },
   };
 }
 
